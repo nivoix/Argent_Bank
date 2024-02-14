@@ -5,7 +5,7 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -13,7 +13,7 @@ function App() {
           <Route path="/user" element={<Profile />} />
         </Routes>
       </Router>
-    </div>
+    </>
   );
 }
 
