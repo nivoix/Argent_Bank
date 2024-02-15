@@ -1,8 +1,16 @@
 import "../index.css";
 import argentBankLogo from "../assets/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faUserCircle,
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
+library.add(faUserCircle, faArrowRightFromBracket);
+
+const Navbar = (user) => {
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/">
@@ -14,10 +22,29 @@ const Navbar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        <NavLink className="main-nav-item" to="/login">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </NavLink>
+        {user ? (
+          <>
+            <NavLink className="main-nav-item" to="/login">
+              <FontAwesomeIcon icon={faUserCircle} />
+              Sign In
+            </NavLink>
+            <NavLink className="main-nav-item" to="/user">
+              <FontAwesomeIcon icon={faUserCircle} />
+              user
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink className="main-nav-item" to="/user">
+              <FontAwesomeIcon icon={faUserCircle} />
+              Tony
+            </NavLink>
+            <NavLink className="main-nav-item" to="/">
+              <FontAwesomeIcon icon={faArrowRightFromBracket} />
+              Sign Out
+            </NavLink>
+          </>
+        )}
       </div>
     </nav>
   );
