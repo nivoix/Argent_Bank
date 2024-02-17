@@ -1,4 +1,4 @@
-import "../index.css";
+import "./Features.scss";
 import { PropTypes } from "prop-types";
 
 const Features = ({ imageUrl, title, text }) => {

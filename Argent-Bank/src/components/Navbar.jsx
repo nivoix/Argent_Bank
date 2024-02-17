@@ -1,14 +1,14 @@
-import "../index.css";
+import "./Navbar.scss";
 import argentBankLogo from "../assets/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faUserCircle,
+  faCircleUser,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUserCircle, faArrowRightFromBracket);
+library.add(faCircleUser, faArrowRightFromBracket);
 
 const Navbar = (user) => {
   return (
@@ -25,18 +25,18 @@ const Navbar = (user) => {
         {user ? (
           <>
             <NavLink className="main-nav-item" to="/login">
-              <FontAwesomeIcon icon={faUserCircle} />
+              <FontAwesomeIcon icon={faCircleUser} />
               Sign In
             </NavLink>
             <NavLink className="main-nav-item" to="/user">
-              <FontAwesomeIcon icon={faUserCircle} />
+              <FontAwesomeIcon icon={faCircleUser} />
               user
             </NavLink>
           </>
         ) : (
           <>
             <NavLink className="main-nav-item" to="/user">
-              <FontAwesomeIcon icon={faUserCircle} />
+              <FontAwesomeIcon icon={faCircleUser} />
               Tony
             </NavLink>
             <NavLink className="main-nav-item" to="/">
