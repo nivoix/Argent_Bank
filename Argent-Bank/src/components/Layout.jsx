@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import "./Layout.scss";
 
 const Layout = ({ children }) => {
-  console.log(children.length);
   return (
     <>
       <Navbar />

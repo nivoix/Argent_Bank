@@ -7,13 +7,14 @@ import {
   faCircleUser,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { isLogged, logout } from "../services/exchangeApi";
 
 library.add(faCircleUser, faArrowRightFromBracket);
 
-const Navbar = (user) => {
+const Navbar = () => {
   return (
     <nav className="main-nav">
-      <NavLink className="main-nav-logo" to="/">
+      <NavLink className="main-nav-logo" to="/" onClick={logout}>
         <img
           className="main-nav-logo-image"
           src={argentBankLogo}
@@ -22,17 +23,11 @@ const Navbar = (user) => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {user ? (
-          <>
-            <NavLink className="main-nav-item" to="/login">
-              <FontAwesomeIcon icon={faCircleUser} />
-              Sign In
-            </NavLink>
-            <NavLink className="main-nav-item" to="/user">
-              <FontAwesomeIcon icon={faCircleUser} />
-              user
-            </NavLink>
-          </>
+        {!isLogged() ? (
+          <NavLink className="main-nav-item" to="/login">
+            <FontAwesomeIcon icon={faCircleUser} />
+            Sign In
+          </NavLink>
         ) : (
           <>
             <NavLink className="main-nav-item" to="/user">
