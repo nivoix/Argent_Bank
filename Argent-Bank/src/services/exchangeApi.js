@@ -1,56 +1,40 @@
 import axios from "axios";
+import { addFirstName, addLastName, addToken } from "../redux";
 
-/**
- * Connexion vers l'API
- * @param {object} credentials
- * @returns {Promise}
- */
-let login = (credentials) => {
-  return axios.post(`http://localhost:3001/api/v1/user/login`, credentials);
+function login(credentials, dispatch, navigate) {
+  axios
+    .post(`http://localhost:3001/api/v1/user/login`, credentials)
+    .then(function (res) {
+      dispatch(addToken(res.data.body.token));
+      navigate("/user");
+      return res.data;
+    })
+    .catch((error) => console.log(error));
+}
+
+let getUser = (token, dispatch) => {
+  axios
+    .post(`http://localhost:3001/api/v1/user/profile`, "", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(function (res) {
+      dispatch(addFirstName(res.data.body.firstName));
+      dispatch(addLastName(res.data.body.lastName));
+      return res.data;
+    })
+    .catch((error) => console.log(error));
 };
 
-/**
- * Connexion vers l'API
- * @param {object} credentials
- * @returns {Promise}
- */
-let getuser = (token) => {
-  return axios.post(`http://localhost:3001/api/v1/user/profile`, "", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-/**
- * Sauvegarde du token dans le localStorage
- * @param {string} token
- */
-let savetoken = (token) => {
-  return localStorage.setItem("token", token);
-};
-/**
- * récupération du token dans le localStorage
- * @param {string} token
- */
-let getToken = () => {
-  return localStorage.getItem("token");
-};
-
-/**
- * Suppression du token du localStorage
- */
 let logout = () => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("email");
+  localStorage.removeItem("password");
 };
 
-/**
- * Etat de la présence d'un token en localStorage
- * @returns {boolean}
- */
 let isLogged = () => {
-  let token = localStorage.getItem("token");
-  return !!token;
+  let user = localStorage.getItem("email");
+  return !!user;
 };
 
-export { login, savetoken, logout, isLogged, getuser, getToken };
+export { login, logout, isLogged, getUser };

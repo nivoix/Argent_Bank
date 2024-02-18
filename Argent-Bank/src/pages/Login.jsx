@@ -4,18 +4,26 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import Layout from "../components/Layout";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { login } from "../services/exchangeApi";
-import { savetoken } from "../services/exchangeApi";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 library.add(faCircleUser);
 
 const Login = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [checked, setChecked] = useState(false);
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+
+  const onClick = () => {
+    setChecked(!checked);
+  };
+
   const onChange = (e) => {
     setCredentials({
       ...credentials,
@@ -23,15 +31,15 @@ const Login = () => {
     });
   };
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    login(credentials)
-      .then(function (res) {
-        console.log(res.data.body.token);
-        savetoken(res.data.body.token);
-        navigate("/user");
-      })
-      .catch((error) => console.log(error));
+    login(credentials, dispatch, navigate);
+    if (checked) {
+      localStorage.email = credentials.email;
+      localStorage.password = credentials.password;
+    } else {
+      localStorage.email = " ";
+    }
   };
 
   return (
@@ -61,7 +69,7 @@ const Login = () => {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me" onClick={onClick} />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}

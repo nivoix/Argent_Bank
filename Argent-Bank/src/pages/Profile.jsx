@@ -1,6 +1,5 @@
 import "./Profile.scss";
 import Layout from "../components/Layout";
-// import { getToken, getuser } from "../services/exchangeApi";
 
 const Profile = () => {
   return (

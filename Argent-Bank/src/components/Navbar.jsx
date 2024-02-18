@@ -12,9 +12,13 @@ import { isLogged, logout } from "../services/exchangeApi";
 library.add(faCircleUser, faArrowRightFromBracket);
 
 const Navbar = () => {
+  const onclick = () => {
+    logout();
+  };
+
   return (
     <nav className="main-nav">
-      <NavLink className="main-nav-logo" to="/" onClick={logout}>
+      <NavLink className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"
           src={argentBankLogo}
@@ -34,7 +38,7 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faCircleUser} />
               Tony
             </NavLink>
-            <NavLink className="main-nav-item" to="/">
+            <NavLink className="main-nav-item" to="/login" onClick={onclick}>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               Sign Out
             </NavLink>
