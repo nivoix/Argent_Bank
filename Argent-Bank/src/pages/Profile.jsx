@@ -1,16 +1,65 @@
 import "./Profile.scss";
 import Layout from "../components/Layout";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../services/exchangeApi";
+import { useState } from "react";
 
 const Profile = () => {
+  const [hide, SetHide] = useState(false);
+  const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
+
+  getUser(token, dispatch);
+  const firstName = useSelector((state) => state.user.firstName);
+  const lastName = useSelector((state) => state.user.lastName);
+
+  const changeDOM = (e) => {
+    e.preventDefault();
+    SetHide(!hide);
+  };
+
   return (
     <Layout>
-      <div className="header">
+      <div className={`header ${hide ? "invisible" : "visible"}`}>
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {firstName} {lastName} !
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <button className="edit-button" onClick={changeDOM}>
+          Edit Name
+        </button>
+      </div>
+      <div className={`headerEdit ${hide ? "visible" : "invisible"}`}>
+        <h1>Welcome back</h1>
+        <form>
+          <div className="input-info">
+            <label htmlFor="firstName">
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder={firstName}
+              />
+            </label>
+            <label htmlFor="lastName">
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder={lastName}
+              />
+            </label>
+          </div>
+          <div className="button-info">
+            <button className="button-choice" onClick={changeDOM}>
+              Save
+            </button>
+            <button className="button-choice" onClick={changeDOM}>
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
