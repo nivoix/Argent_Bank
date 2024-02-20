@@ -21,10 +21,13 @@ const userSlice = createSlice({
     addLastName: (state, action) => {
       state.lastName = action.payload;
     },
+    clearState: () => {
+      return { token: null, email: null, firstName: null, lastName: null };
+    },
   },
 });
 
-export const { addToken, addEmail, addFirstName, addLastName } =
+export const { addToken, addEmail, addFirstName, addLastName, clearState } =
   userSlice.actions;
 
 export const store = configureStore({

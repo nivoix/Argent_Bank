@@ -7,13 +7,18 @@ import {
   faCircleUser,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { isLogged, logout } from "../services/exchangeApi";
+import { logout } from "../services/exchangeApi";
+import { useDispatch, useSelector } from "react-redux";
 
 library.add(faCircleUser, faArrowRightFromBracket);
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+
+  const firstName = useSelector((state) => state.user.firstName);
   const onclick = () => {
-    logout();
+    logout(dispatch);
   };
 
   return (
@@ -27,7 +32,7 @@ const Navbar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {!isLogged() ? (
+        {token === null ? (
           <NavLink className="main-nav-item" to="/login">
             <FontAwesomeIcon icon={faCircleUser} />
             Sign In
@@ -36,7 +41,7 @@ const Navbar = () => {
           <>
             <NavLink className="main-nav-item" to="/user">
               <FontAwesomeIcon icon={faCircleUser} />
-              Tony
+              {firstName}
             </NavLink>
             <NavLink className="main-nav-item" to="/login" onClick={onclick}>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
