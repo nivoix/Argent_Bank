@@ -5,6 +5,7 @@
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
@@ -15,8 +16,8 @@
   background-color: white;
   width: 300px;
   margin: 0 auto;
-  margin-top: 3rem;
-  padding: 2rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
 }
 .sign-in-icon {
   font-size: inherit;
@@ -44,4 +45,8 @@
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+}
+span {
+  margin-top: 5px;
+  color: red;
 }

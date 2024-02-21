@@ -107,3 +107,19 @@
     width: 200px;
   }
 }
+@media (width<425px) {
+  .account-amount {
+    font-size: 2rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .input-info,
+  .button-info {
+    flex-direction: column;
+  }
+}

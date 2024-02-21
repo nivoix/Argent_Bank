@@ -4,6 +4,11 @@
   align-items: center;
   padding: 5px 20px;
 }
+@media (width<425px) {
+  .main-nav {
+    flex-direction: column;
+  }
+}
 
 .main-nav a {
   font-weight: bold;

@@ -17,6 +17,7 @@ const Navbar = () => {
   const token = useSelector((state) => state.user.token);
 
   const firstName = useSelector((state) => state.user.firstName);
+
   const onclick = () => {
     logout(dispatch);
   };
@@ -43,7 +44,7 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faCircleUser} />
               {firstName}
             </NavLink>
-            <NavLink className="main-nav-item" to="/login" onClick={onclick}>
+            <NavLink className="main-nav-item" to="/" onClick={onclick}>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               Sign Out
             </NavLink>

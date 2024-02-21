@@ -5,7 +5,7 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import Layout from "../components/Layout";
 import { useState } from "react";
 import { login } from "../services/exchangeApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 library.add(faCircleUser);
@@ -13,6 +13,7 @@ library.add(faCircleUser);
 const Login = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const message = useSelector((state) => state.api.messageError);
 
   const [checked, setChecked] = useState(false);
   const [credentials, setCredentials] = useState({
@@ -72,15 +73,10 @@ const Login = () => {
             <input type="checkbox" id="remember-me" onClick={onClick} />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-          {/* <NavLink to="/user" className="sign-in-button">
-            Sign In
-          </NavLink> */}
-          {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
           <button className="sign-in-button" onClick={handleClick}>
             Sign In
           </button>
-          {/* <!--  --> */}
+          {message && <span>{message}</span>}
         </form>
       </section>
     </Layout>

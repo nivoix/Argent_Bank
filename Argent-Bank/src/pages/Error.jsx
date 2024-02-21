@@ -1,13 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { NavLink } from "react-router-dom";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Layout from "../components/Layout";
+
 import "./Error.scss";
 
 const Error = () => {
   return (
-    <>
-      <Navbar />
+    <Layout>
       <>
         <h1 className="error">
           <span> Ooops....!</span>
@@ -18,8 +17,7 @@ const Error = () => {
           Retour à la page d'accueil
         </NavLink>
       </>
-      <Footer />
-    </>
+    </Layout>
   );
 };
 
