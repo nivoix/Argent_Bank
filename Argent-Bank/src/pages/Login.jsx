@@ -7,6 +7,8 @@ import { useState } from "react";
 import { login } from "../services/exchangeApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { clearMessage } from "../redux";
+import Loader from "../components/Loader";
 
 library.add(faCircleUser);
 
@@ -15,6 +17,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.api.messageError);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(false);
   const [credentials, setCredentials] = useState({
     email: "",
@@ -30,10 +33,13 @@ const Login = () => {
       ...credentials,
       [e.target.name]: e.target.value,
     });
+    dispatch(clearMessage());
+    setIsLoading(false);
   };
 
   const handleClick = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     login(credentials, dispatch, navigate);
     if (checked) {
       localStorage.email = credentials.email;
@@ -46,6 +52,7 @@ const Login = () => {
   return (
     <Layout>
       <section className="sign-in-content">
+        {message === null && isLoading && <Loader />}
         <FontAwesomeIcon icon={faCircleUser} className="sign-in-icon" />
         <h1>Sign In</h1>
         <form>

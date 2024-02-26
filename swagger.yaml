@@ -1,0 +1,142 @@
+swagger: "2.0"
+info:
+  title: Bank Argent API documentation
+  description: Contains API endpoints for the transaction's futur codebase
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/transaction/{month}:
+    get:
+      tags:
+        - User Module Transaction
+      summary: User Transaction API
+      description: API for fetching monthly user transaction
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: month
+          in: path
+          description: month
+          required: true
+          type: integer
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: User transaction retrieved successully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/transaction/{id}:
+    get:
+      tags:
+        - User Module Transaction
+      summary: User Transaction API
+      description: API for fetching one transaction
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: ID of the transaction to get
+          required: true
+          type: integer
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: Transactions retrieved successully
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - User Module Transaction
+      summary: User Transaction API
+      description: API for updating a transaction
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: id
+          in: path
+          description: ID of the transaction to get
+          required: true
+          type: integer
+        - name: category
+          in: query
+          description: Category of transaction that needs to be updated
+          schema:
+            type: string
+        - name: notes
+          in: query
+          description: Notes of transaction that needs to be updated
+          schema:
+            type: string
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: Transaction updated successully
+          schema:
+            $ref: "#/definitions/TransactionUpdateResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Transaction:
+    properties:
+      id:
+        type: string
+        description: Transaction ID
+      date:
+        type: string
+        description: Transaction date
+      description:
+        type: string
+        description: Transaction description
+      amount:
+        type: number
+        description: Transaction amount
+      balance:
+        type: number
+        description: Account balance
+      type:
+        type: string
+        description: Transaction type
+      category:
+        type: string
+        description: Transaction category
+      notes:
+        type: string
+        description: Transaction notes

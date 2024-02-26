@@ -44,7 +44,7 @@ npm install
 npm run dev
 ```
 
-#### secondly, in the folder `Argent_Bank_server\.env`
+#### Secondly, in the folder `Argent_Bank_server\.env`
 
 replaced in DATABASE_URL: "Username" by the username you chose when you created your user on MongoDB Atlas
 and

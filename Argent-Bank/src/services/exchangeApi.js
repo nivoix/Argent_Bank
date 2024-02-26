@@ -4,7 +4,6 @@ import {
   addLastName,
   addMessage,
   addToken,
-  clearMessage,
   clearStore,
 } from "../redux";
 
@@ -14,14 +13,13 @@ function login(credentials, dispatch, navigate) {
     .post(`http://localhost:3001/api/v1/user/login`, credentials)
     .then(function (res) {
       dispatch(addToken(res.data.body.token));
-      dispatch(clearMessage());
       navigate("/user");
-      return res.data;
+      return false;
     })
     .catch((error) => {
       console.log(error);
       dispatch(addMessage(error.response.data.message));
-      console.log(error.response.data.message);
+      return false;
     });
 }
 
