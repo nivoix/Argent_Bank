@@ -42,11 +42,7 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    login(credentials, dispatch, navigate);
-    if (checked) {
-      localStorage.email = credentials.email;
-      localStorage.password = credentials.password;
-    }
+    login(credentials, dispatch, navigate, checked);
   };
 
   return (

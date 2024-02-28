@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import { useNavigate } from "react-router";
 
 const Profile = () => {
-  const token = useSelector((state) => state.user.token);
+  const token = useSelector((state) => state.user.token) || localStorage.token;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const firstName = useSelector((state) => state.user.firstName);

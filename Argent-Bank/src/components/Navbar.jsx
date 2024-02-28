@@ -14,7 +14,7 @@ library.add(faCircleUser, faArrowRightFromBracket);
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
+  const token = useSelector((state) => state.user.token) || localStorage.token;
 
   const firstName = useSelector((state) => state.user.firstName);
 
@@ -33,7 +33,7 @@ const Navbar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {token === null ? (
+        {token === "null" ? (
           <NavLink className="main-nav-item" to="/login">
             <FontAwesomeIcon icon={faCircleUser} />
             Sign In
@@ -42,7 +42,7 @@ const Navbar = () => {
           <>
             <NavLink className="main-nav-item" to="/user">
               <FontAwesomeIcon icon={faCircleUser} />
-              {firstName}
+              {firstName || localStorage.firstName}
             </NavLink>
             <NavLink className="main-nav-item" to="/" onClick={onclick}>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />

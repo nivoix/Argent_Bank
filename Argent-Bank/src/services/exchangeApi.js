@@ -8,18 +8,21 @@ import {
 } from "../redux";
 
 //obtention du token
-function login(credentials, dispatch, navigate) {
+function login(credentials, dispatch, navigate, checked) {
   axios
     .post(`http://localhost:3001/api/v1/user/login`, credentials)
     .then(function (res) {
       dispatch(addToken(res.data.body.token));
       navigate("/user");
-      /* return false; */
+      if (checked) {
+        localStorage.token = res.data.body.token;
+        localStorage.email = credentials.email;
+        localStorage.password = credentials.password;
+      }
     })
     .catch((error) => {
       console.log(error);
       dispatch(addMessage(error.response.data.message));
-      /* return false; */
     });
 }
 
@@ -34,6 +37,7 @@ function getUser(token, dispatch, navigate) {
     .then(function (res) {
       dispatch(addFirstName(res.data.body.firstName));
       dispatch(addLastName(res.data.body.lastName));
+      localStorage.firstName = res.data.body.firstName;
       return res.data.body;
     })
     .catch((error) => {
@@ -62,6 +66,7 @@ let putUser = (token, dispatch, credentials) => {
 let logout = (dispatch) => {
   localStorage.removeItem("email");
   localStorage.removeItem("password");
+  localStorage.token = "null";
   dispatch(clearStore());
 };
 
