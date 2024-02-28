@@ -33,7 +33,9 @@ const Login = () => {
       ...credentials,
       [e.target.name]: e.target.value,
     });
-    dispatch(clearMessage());
+    if (message !== null) {
+      dispatch(clearMessage());
+    }
     setIsLoading(false);
   };
 
@@ -44,8 +46,6 @@ const Login = () => {
     if (checked) {
       localStorage.email = credentials.email;
       localStorage.password = credentials.password;
-    } else {
-      localStorage.email = " ";
     }
   };
 
@@ -83,7 +83,7 @@ const Login = () => {
           <button className="sign-in-button" onClick={handleClick}>
             Sign In
           </button>
-          {message && <span>{message}</span>}
+          {message && <span>Username or password invalid</span>}
         </form>
       </section>
     </Layout>

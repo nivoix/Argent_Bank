@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./Profile.scss";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +11,17 @@ const Profile = () => {
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  getUser(token, dispatch, navigate);
+  const firstName = useSelector((state) => state.user.firstName);
+  const lastName = useSelector((state) => state.user.lastName);
   const [hide, SetHide] = useState(false);
   const [credentials, setCredentials] = useState({
     firstName: "",
     lastName: "",
   });
+
+  if (firstName === null) {
+    getUser(token, dispatch, navigate);
+  }
 
   const changeDOM = (e) => {
     e.preventDefault();
@@ -28,8 +34,6 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const firstName = useSelector((state) => state.user.firstName);
-  const lastName = useSelector((state) => state.user.lastName);
 
   const updateChange = (e) => {
     e.preventDefault();

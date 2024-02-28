@@ -14,12 +14,12 @@ function login(credentials, dispatch, navigate) {
     .then(function (res) {
       dispatch(addToken(res.data.body.token));
       navigate("/user");
-      return false;
+      /* return false; */
     })
     .catch((error) => {
       console.log(error);
       dispatch(addMessage(error.response.data.message));
-      return false;
+      /* return false; */
     });
 }
 
@@ -34,7 +34,7 @@ function getUser(token, dispatch, navigate) {
     .then(function (res) {
       dispatch(addFirstName(res.data.body.firstName));
       dispatch(addLastName(res.data.body.lastName));
-      return res.data;
+      return res.data.body;
     })
     .catch((error) => {
       console.log(error);

@@ -18,6 +18,9 @@
   margin: 0 auto;
   margin-top: 2rem;
   padding: 1.5rem;
+  & form {
+    height: 240px;
+  }
 }
 .sign-in-icon {
   font-size: inherit;

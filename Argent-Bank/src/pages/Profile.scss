@@ -118,8 +118,11 @@
     align-items: center;
     justify-content: space-around;
   }
-  .input-info,
-  .button-info {
+  .input-info {
     flex-direction: column;
+    margin-bottom: 0;
+    & input {
+      height: 30px;
+    }
   }
 }
