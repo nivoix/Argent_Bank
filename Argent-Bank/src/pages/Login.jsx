@@ -1,19 +1,19 @@
 import "./Login.scss";
+import Layout from "../components/Layout";
+import Loader from "../components/Loader";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { login } from "../services/exchangeApi";
+import { clearMessage } from "../redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import Layout from "../components/Layout";
-import { useState } from "react";
-import { login } from "../services/exchangeApi";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { clearMessage } from "../redux";
-import Loader from "../components/Loader";
 
 library.add(faCircleUser);
 
 const Login = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const message = useSelector((state) => state.api.messageError);
 

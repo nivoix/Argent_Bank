@@ -16,8 +16,6 @@ function login(credentials, dispatch, navigate, checked) {
       navigate("/user");
       if (checked) {
         localStorage.token = res.data.body.token;
-        localStorage.email = credentials.email;
-        localStorage.password = credentials.password;
       }
     })
     .catch((error) => {
@@ -38,7 +36,6 @@ function getUser(token, dispatch, navigate) {
       dispatch(addFirstName(res.data.body.firstName));
       dispatch(addLastName(res.data.body.lastName));
       localStorage.firstName = res.data.body.firstName;
-      return res.data.body;
     })
     .catch((error) => {
       console.log(error);
@@ -57,15 +54,13 @@ let putUser = (token, dispatch, credentials) => {
     .then(function (res) {
       dispatch(addFirstName(res.data.body.firstName));
       dispatch(addLastName(res.data.body.lastName));
-      return res.data;
     })
     .catch((error) => console.log(error));
 };
 
 //déconnection de l'utilisateur localStorage vidé et store vidé
 let logout = (dispatch) => {
-  localStorage.removeItem("email");
-  localStorage.removeItem("password");
+  localStorage.removeItem("firstName");
   localStorage.token = "null";
   dispatch(clearStore());
 };

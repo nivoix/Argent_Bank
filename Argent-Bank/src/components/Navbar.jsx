@@ -1,14 +1,14 @@
 import "./Navbar.scss";
 import argentBankLogo from "../assets/argentBankLogo.png";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logout } from "../services/exchangeApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCircleUser,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { logout } from "../services/exchangeApi";
-import { useDispatch, useSelector } from "react-redux";
 
 library.add(faCircleUser, faArrowRightFromBracket);
 
@@ -44,7 +44,7 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faCircleUser} />
               {firstName || localStorage.firstName}
             </NavLink>
-            <NavLink className="main-nav-item" to="/" onClick={onclick}>
+            <NavLink className="main-nav-item" to="/login" onClick={onclick}>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               Sign Out
             </NavLink>

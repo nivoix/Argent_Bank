@@ -1,13 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import "./Profile.scss";
-import Layout from "../components/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser, putUser } from "../services/exchangeApi";
-import { useState } from "react";
-import Loader from "../components/Loader";
-import { useNavigate } from "react-router";
 import Data from "../assets/accounts.json";
+import Layout from "../components/Layout";
+import Loader from "../components/Loader";
 import Accounts from "../components/Accounts";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { useState } from "react";
+import { getUser, putUser } from "../services/exchangeApi";
 
 const Profile = () => {
   const datas = { Data };
