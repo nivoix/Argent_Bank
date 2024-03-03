@@ -15,34 +15,55 @@ library.add(faCircleUser);
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // gestion de l'affichage du message erreur en fonction de la réponse de l'api
   const message = useSelector((state) => state.api.messageError);
-
+  // loading pour attendre la réponse de l'api
   const [isLoading, setIsLoading] = useState(false);
+  // état du "rememberMe" coché ou pas
   const [checked, setChecked] = useState(false);
+  // gestion des identifiants
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  // gestion de la validité des inputs via les regex
+  const [validInput, setValidInput] = useState({
+    email: false,
+    password: false,
+  });
+  // gestion de l'affichage du message d'erreur en fontion de la saisie utilisateur
+  const [error, setError] = useState(false);
 
+  // checkbox
   const onClick = () => {
     setChecked(!checked);
   };
 
+  // Inputs
   const onChange = (e) => {
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value,
     });
+    setValidInput({
+      ...validInput,
+      [e.target.name]: e.target.validity.valid,
+    });
     if (message !== null) {
       dispatch(clearMessage());
     }
     setIsLoading(false);
+    setError(false);
   };
 
+  // gestion du submit
   const handleClick = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    login(credentials, dispatch, navigate, checked);
+    if (validInput.email && validInput.password) {
+      setIsLoading(true);
+      login(credentials, dispatch, navigate, checked);
+    }
+    setError(true);
   };
 
   return (
@@ -59,7 +80,9 @@ const Login = () => {
               id="email"
               autoComplete="email"
               name="email"
+              pattern="^[a-z0-9_\-]+@[a-z0-9\-]+\.[a-z]{2,}"
               onChange={onChange}
+              required
             />
           </div>
           <div className="input-wrapper">
@@ -69,7 +92,9 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
               name="password"
+              pattern="^[^>\/<:;?'`&\|]\w{10,}?"
               onChange={onChange}
+              required
             />
           </div>
           <div className="input-remember">
@@ -79,7 +104,7 @@ const Login = () => {
           <button className="sign-in-button" onClick={handleClick}>
             Sign In
           </button>
-          {message && <span>Username or password invalid</span>}
+          {(message || error) && <span>Username or password invalid</span>}
         </form>
       </section>
     </Layout>
