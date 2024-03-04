@@ -20,11 +20,16 @@ const Profile = () => {
     firstName: "",
     lastName: "",
   });
+  // gestion de la validité des inputs via les regex
+  const [validInput, setValidInput] = useState({
+    firstName: false,
+    lastName: false,
+  });
 
   if (firstName === null) {
     getUser(token, dispatch, navigate);
   }
-
+  //button cancel
   const changeDOM = (e) => {
     e.preventDefault();
     SetHide(!hide);
@@ -35,12 +40,18 @@ const Profile = () => {
       ...credentials,
       [e.target.name]: e.target.value,
     });
+    setValidInput({
+      ...validInput,
+      [e.target.name]: e.target.validity.valid,
+    });
   };
 
   const updateChange = (e) => {
     e.preventDefault();
-    putUser(token, dispatch, credentials);
-    SetHide(!hide);
+    if (validInput.firstName && validInput.lastName) {
+      putUser(token, dispatch, credentials);
+      SetHide(!hide);
+    }
   };
 
   return (
@@ -71,6 +82,10 @@ const Profile = () => {
                     id="firstName"
                     name="firstName"
                     placeholder={firstName}
+                    minLength={3}
+                    maxLength={40}
+                    title="Numbers and symbols are not allowed"
+                    pattern="^[^>\/<:;?'`&\|]([A-Za-zÀ-ÿœ]{2,40})"
                     onChange={onChange}
                   />
                 </label>
@@ -79,6 +94,10 @@ const Profile = () => {
                     type="text"
                     id="lastName"
                     name="lastName"
+                    minLength={2}
+                    maxLength={30}
+                    pattern="^[^>\/<:;?'`&\|]([a-zA-ZÀ-ÿœ]{2,30})"
+                    title="Numbers and symbols are not allowed"
                     placeholder={lastName}
                     onChange={onChange}
                   />

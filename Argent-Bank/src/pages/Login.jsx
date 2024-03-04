@@ -32,7 +32,7 @@ const Login = () => {
     password: false,
   });
   // gestion de l'affichage du message d'erreur en fontion de la saisie utilisateur
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   // checkbox
   const onClick = () => {
@@ -53,7 +53,7 @@ const Login = () => {
       dispatch(clearMessage());
     }
     setIsLoading(false);
-    setError(false);
+    setError(null);
   };
 
   // gestion du submit
@@ -62,8 +62,9 @@ const Login = () => {
     if (validInput.email && validInput.password) {
       setIsLoading(true);
       login(credentials, dispatch, navigate, checked);
+    } else {
+      setError("visible");
     }
-    setError(true);
   };
 
   return (
@@ -76,13 +77,13 @@ const Login = () => {
           <div className="input-wrapper">
             <label htmlFor="email">Username</label>
             <input
-              type="text"
+              type="email"
               id="email"
               autoComplete="email"
               name="email"
+              title="Please enter a valid email address"
               pattern="^[a-z0-9_\-]+@[a-z0-9\-]+\.[a-z]{2,}"
               onChange={onChange}
-              required
             />
           </div>
           <div className="input-wrapper">
@@ -92,9 +93,10 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
               name="password"
+              minLength="10"
+              title="Please enter a password with 10 characters and without (>,/,<,:,;,?,',`,&,|)"
               pattern="^[^>\/<:;?'`&\|]\w{10,}?"
               onChange={onChange}
-              required
             />
           </div>
           <div className="input-remember">
@@ -104,7 +106,8 @@ const Login = () => {
           <button className="sign-in-button" onClick={handleClick}>
             Sign In
           </button>
-          {(message || error) && <span>Username or password invalid</span>}
+          {message && <span>Username or password not found</span>}
+          {error && <span>Username or password invalid</span>}
         </form>
       </section>
     </Layout>

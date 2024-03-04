@@ -22,6 +22,9 @@
         padding: 5px;
         font-size: 1.2rem;
       }
+      & input:invalid {
+        border: 2px solid red;
+      }
     }
     & .input-remember {
       display: flex;

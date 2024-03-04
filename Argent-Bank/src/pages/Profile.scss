@@ -29,6 +29,9 @@
       height: -webkit-fill-available;
       outline: none;
     }
+    & input:invalid {
+      border: 2px solid red;
+    }
   }
   & .button-info {
     height: 30px;
