@@ -8,15 +8,13 @@ import {
 } from "../redux";
 
 //obtention du token
-function login(credentials, dispatch, navigate, checked) {
+function login(credentials, dispatch, navigate) {
   axios
     .post(`http://localhost:3001/api/v1/user/login`, credentials)
     .then(function (res) {
       dispatch(addToken(res.data.body.token));
       navigate("/user");
-      if (checked) {
-        localStorage.token = res.data.body.token;
-      }
+      localStorage.token = res.data.body.token;
     })
     .catch((error) => {
       console.log(error);

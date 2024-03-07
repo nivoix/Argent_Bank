@@ -17,8 +17,8 @@ const Profile = () => {
   const lastName = useSelector((state) => state.user.lastName);
   const [hide, SetHide] = useState(false);
   const [credentials, setCredentials] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: firstName,
+    lastName: lastName,
   });
   // gestion de la validité des inputs via les regex
   const [validInput, setValidInput] = useState({
@@ -48,7 +48,7 @@ const Profile = () => {
 
   const updateChange = (e) => {
     e.preventDefault();
-    if (validInput.firstName && validInput.lastName) {
+    if (validInput.firstName || validInput.lastName) {
       putUser(token, dispatch, credentials);
       SetHide(!hide);
     }
